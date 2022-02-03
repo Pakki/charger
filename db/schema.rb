@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_02_185059) do
+ActiveRecord::Schema.define(version: 2022_02_03_055023) do
 
   create_table "clients", force: :cascade do |t|
     t.string "name", limit: 200, null: false
@@ -18,6 +18,14 @@ ActiveRecord::Schema.define(version: 2022_02_02_185059) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["phone_number"], name: "index_clients_on_phone_number", unique: true
+  end
+
+  create_table "points", force: :cascade do |t|
+    t.string "title", limit: 200, null: false
+    t.decimal "latitude", precision: 10, scale: 6, null: false
+    t.decimal "longitude", precision: 10, scale: 6, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
 end
