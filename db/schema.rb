@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_03_113853) do
+ActiveRecord::Schema.define(version: 2022_02_03_173410) do
 
   create_table "clients", force: :cascade do |t|
     t.string "name", limit: 200, null: false
@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 2022_02_03_113853) do
     t.decimal "power", precision: 10, scale: 3, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index "\"station\"", name: "index_connectors_on_station"
     t.index ["station_id"], name: "index_connectors_on_station_id"
   end
 
@@ -39,15 +38,28 @@ ActiveRecord::Schema.define(version: 2022_02_03_113853) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "sessions", force: :cascade do |t|
+    t.integer "connector_id", null: false
+    t.integer "client_id", null: false
+    t.decimal "charged", precision: 10, scale: 3
+    t.datetime "started_at", precision: 6, null: false
+    t.datetime "finished_at", precision: 6
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_sessions_on_client_id"
+    t.index ["connector_id"], name: "index_sessions_on_connector_id"
+  end
+
   create_table "stations", force: :cascade do |t|
     t.integer "point_id", null: false
     t.string "sn", limit: 50, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index "\"point\"", name: "index_stations_on_point"
     t.index ["point_id"], name: "index_stations_on_point_id"
   end
 
   add_foreign_key "connectors", "stations"
+  add_foreign_key "sessions", "clients"
+  add_foreign_key "sessions", "connectors"
   add_foreign_key "stations", "points"
 end

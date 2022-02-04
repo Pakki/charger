@@ -1,24 +1,12 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Charging stations demo project
 
-Things you may want to cover:
+- Ruby version - 3.1.0
+- Ruby on Rails - 7.0.1
 
-* Ruby version
+After installing these project, you can fill DB with test data, by `rails db:seed`.
 
-* System dependencies
+To add new charging session, try `curl -d'{"client_id":"1", "connector_id":"1"}' -H "Content-Type: application/json" -X POST http://127.0.0.1:3000/sessions`
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+To finish session - `curl -d'{"charged":"123"}' -H "Content-Type: application/json" -X POST http://127.0.0.1:3000/sessions/:session_id/stop` - don't forget session id

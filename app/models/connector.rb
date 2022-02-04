@@ -3,6 +3,8 @@ class Connector < ApplicationRecord
 
   belongs_to :station
 
+  has_many :sessions, dependent: :destroy
+
   enum connector_type: {
     chademo: 1, csscombo2: 2, type2: 3
   }, _prefix: true
