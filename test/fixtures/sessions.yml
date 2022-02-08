@@ -13,3 +13,8 @@ two:
   charged: 9.99
   started_at: 2022-02-03 20:34:10
   finished_at: 2022-02-03 20:34:10
+
+three:
+  client: two
+  connector: two
+  started_at: 2022-02-03 20:34:10

@@ -3,11 +3,17 @@
 one:
   station: one
   connector_type: 1
-  state: 1
+  state: 2
   power: 9.99
 
 two:
   station: two
   connector_type: 1
-  state: 1
+  state: 2
+  power: 9.99
+
+three:
+  station: one
+  connector_type: 2
+  state: 2
   power: 9.99

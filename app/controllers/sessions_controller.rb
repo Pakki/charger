@@ -1,10 +1,10 @@
 class SessionsController < ApplicationController
-  before_action :set_session, only: %i[show update destroy]
+  before_action :set_session, only: %i[show stop]
 
   # GET /sessions
   # GET /sessions.json
   def index
-    @sessions = Session.all
+    @sessions = Session.eager_load(:client, :connector)
   end
 
   # GET /sessions/1
@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
   def create
     @session = Session.new(session_start_params)
     @session.started_at = Time.now
-    @session.errors.add(:connector, message: 'connector is not ready!') unless @session.connector.state_ready?
+    @session.errors.add(:connector, message: 'connector is not ready!') unless @session.connector&.state_ready?
     if @session.errors.empty? && @session.connector.state_busy! && @session.save
       render :show, status: :created, location: @session
     else
@@ -25,9 +25,11 @@ class SessionsController < ApplicationController
   end
 
   # POST /sessions/1/stop
-  def update
+  def stop
+    @session.errors.add(:session, message: 'this session is already finished!') if @session&.finished_at
+
     @session.finished_at = Time.now
-    if @session.update(session_stop_params) && @session.connector.state_ready!
+    if @session.errors.empty? && @session.update(session_stop_params) && @session.connector.state_ready!
       render :show, status: :ok, location: @session
     else
       render json: @session.errors, status: :unprocessable_entity
