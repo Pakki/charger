@@ -3,7 +3,7 @@
 ## Electric cars charging stations API, demo project
 
 - Ruby version - 3.2.2
-- Ruby on Rails - 7.0.7
+- Ruby on Rails >= 7.1.3.2
 
 After installing these project, you can fill DB with test data, by `rails db:seed`.
 
