@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_14_063547) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_14_063547) do
   create_table "clients", force: :cascade do |t|
     t.string "name", limit: 200, null: false
     t.string "phone_number", limit: 11, null: false

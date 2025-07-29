@@ -5,11 +5,11 @@ class Connector < ApplicationRecord
 
   has_many :sessions, dependent: :destroy
 
-  enum connector_type: {
+  enum :connector_type, {
     chademo: 1, csscombo2: 2, type2: 3
-  }, _prefix: true
+  }, prefix: true
 
-  enum state: {
+  enum :state, {
     offline: 1, ready: 2, busy: 3
-  }, _prefix: true
+  }, prefix: true
 end
